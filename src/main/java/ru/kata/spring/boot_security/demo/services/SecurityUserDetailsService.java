@@ -19,5 +19,5 @@ public class SecurityUserDetailsService implements UserDetailsService {
 
         return userService.findByUsername(username);
     }
-    }
+}
 

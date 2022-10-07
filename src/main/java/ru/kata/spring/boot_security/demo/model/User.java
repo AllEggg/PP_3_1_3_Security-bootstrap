@@ -38,7 +38,7 @@ public class User implements UserDetails {
     @ManyToMany(fetch = FetchType.LAZY)
     @Fetch(FetchMode.JOIN)
     @JoinTable(name = "users_roles",
-    joinColumns = @JoinColumn(name ="user_set_id"),
+            joinColumns = @JoinColumn(name = "user_set_id"),
             inverseJoinColumns = @JoinColumn(name = "roles_id"))
     private Set<Role> roles;
 
@@ -56,21 +56,25 @@ public class User implements UserDetails {
     public String getUsername() {
         return email;
     }
+
     @Transient
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
+
     @Transient
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
+
     @Transient
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
+
     @Transient
     @Override
     public boolean isEnabled() {

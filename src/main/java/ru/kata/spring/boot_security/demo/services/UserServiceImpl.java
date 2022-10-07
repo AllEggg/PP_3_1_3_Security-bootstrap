@@ -2,6 +2,7 @@ package ru.kata.spring.boot_security.demo.services;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.kata.spring.boot_security.demo.exeptions.UserExistsException;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 
@@ -20,6 +21,7 @@ public class UserServiceImpl implements UserService {
         this.passwordEncoder = passwordEncoder;
 
     }
+
     @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -39,19 +41,25 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void editUser(User user) {
-        User userFromDB = getUser(user.getId());
-        if (!user.getPassword().equals(userFromDB.getPassword())) {
+        if (userRepository.findUserByEmail(user.getEmail()) != null &&
+                userRepository.findUserByEmail(user.getEmail()).getId() != user.getId()) {
+            throw new UserExistsException(user);
+        }
+        if (user.getPassword().isEmpty()) {
+            user.setPassword(userRepository.findById(user.getId()).get().getPassword());
+        } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
         userRepository.save(user);
     }
+
     @Override
     @Transactional
     public void saveUser(User user) {
-        System.out.println(user.getRoles());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
+
     @Override
     public User findByUsername(String email) {
         return userRepository.findUserByEmail(email);

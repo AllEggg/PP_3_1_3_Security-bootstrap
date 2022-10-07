@@ -7,6 +7,7 @@ import javax.persistence.EntityExistsException;
 public class UserExistsException extends EntityExistsException {
 
     private User user;
+
     public UserExistsException(User user) {
         this.user = user;
     }
