@@ -15,14 +15,6 @@ import ru.kata.spring.boot_security.demo.services.UserService;
 @RequestMapping("/user")
 public class UserController {
 
-    private final UserService userService;
-    private final RoleService roleService;
-
-    public UserController(UserService userService, RoleService roleService) {
-        this.userService = userService;
-        this.roleService = roleService;
-    }
-
     @GetMapping
     public String getPersonalData(@AuthenticationPrincipal User user, Model model) {
         model.addAttribute("user", user);

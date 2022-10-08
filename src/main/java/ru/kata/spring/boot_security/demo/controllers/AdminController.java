@@ -44,7 +44,7 @@ public class AdminController {
 
     @PutMapping("/edit{id}")
     public String updateUser(@ModelAttribute("user") User user) {
-        userService.editUser(user);
+        userService.saveUser(user);
         return "redirect:/admin";
     }
 

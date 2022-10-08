@@ -40,26 +40,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void editUser(User user) {
+    public void saveUser(User user) {
         if (userRepository.findUserByEmail(user.getEmail()) != null &&
                 userRepository.findUserByEmail(user.getEmail()).getId() != user.getId()) {
             throw new UserExistsException(user);
         }
-        if (user.getPassword().isEmpty()) {
+        if (user.getPassword().isEmpty() && user.getId() != null) {
             user.setPassword(userRepository.findById(user.getId()).get().getPassword());
         } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
         userRepository.save(user);
     }
-
-    @Override
-    @Transactional
-    public void saveUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
-    }
-
     @Override
     public User findByUsername(String email) {
         return userRepository.findUserByEmail(email);

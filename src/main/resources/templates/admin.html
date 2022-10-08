@@ -78,12 +78,12 @@
                                         <td>
                                             <a type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
                                                data-bs-target="#DELETE"
-                                               th:data-bs-target="${'#DELETE'+user.id}">Delete</a>
+                                               th:data-bs-target="${'#DELETE' + user.id}">Delete</a>
                                         </td>
 
-                                        <div class="modal fade" th:id="${'editModal'+user.id}"
+                                        <div class="modal fade" th:id="${'editModal' + user.id}"
                                              aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" modal-dialog-centered>
+                                            <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="editModalLabel">Edit user</h5>
@@ -132,7 +132,7 @@
                                                                     </th:block>
                                                                 </option>
                                                             </select>
-                                                            <br><br>
+                                                             <br>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"
@@ -148,7 +148,7 @@
                                         </div>
                                         <div class="modal fade" th:id="${'DELETE' + user.id}"
                                              aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
+                                            <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="exampleModalLabel">Delete
@@ -186,8 +186,11 @@
                                                                    class="form-control"
                                                                    id="email1" th:value="${user.email}" disabled/>
                                                             <br>
+                                                            <label for="roles1"><b>Roles</b></label>
+                                                            <input th:name="roles" th:type="text"
+                                                                   class="form-control"
+                                                                   id="roles1" th:value="${user.roles}" disabled/>
                                                         </div>
-
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"
                                                                     data-bs-dismiss="modal">Close
